@@ -1,0 +1,13 @@
+Documentation:
+  Enabled: false
+AllCops:
+  Exclude:
+    - 'Rakefile'
+    - '**/*.rake'
+    - 'spec/**/*.rb'
+    - 'spec/**/**/*.rb'
+    - 'db/*.rb'
+    - 'db/**/*.rb'
+    - 'config/**/*'
+    - 'bin/*'
+    - 'Gemfile'
