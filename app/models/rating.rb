@@ -5,4 +5,6 @@ class Rating < ApplicationRecord
   belongs_to :ratable, polymorphic: true, optional: true
   validates :grade, presence: true, inclusion: { in: (1..10) }
   validates :rating_type, presence: true
+
+  default_scope { order(rating_type: :asc) }
 end

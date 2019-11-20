@@ -8,7 +8,10 @@ class WhiskeyRepresenter
         created_at: whiskey.created_at,
         name: whiskey.name,
         description: whiskey.description,
-        ratings: RatingRepresenter.collection(whiskey.ratings)
+        ratings: whiskey.ratings.reduce({}) do |memo, rating|
+          memo[rating.rating_type] = rating.grade
+          memo
+        end
       }
     end
 

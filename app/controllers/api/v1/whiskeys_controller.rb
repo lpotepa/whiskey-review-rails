@@ -8,7 +8,7 @@ module Api
       def index
         if filters.empty?
           render json: WhiskeyRepresenter.collection(
-            Whiskey.eager_load(:ratings)
+            Whiskey.preload(:ratings).order(created_at: :desc)
           )
         else
           render json: WhiskeyRepresenter.collection(
@@ -53,7 +53,7 @@ module Api
       private
 
       def set_whiskey
-        @whiskey = Whiskey.eager_load(:ratings).find_by_id(params[:id])
+        @whiskey = Whiskey.preload(:ratings).find_by_id(params[:id])
         return render json: { error: 'Not found' }, status: 404 unless @whiskey
       end
 
@@ -65,7 +65,7 @@ module Api
       end
 
       def filters
-        permitted_params.slice(*Whiskey::RATING_TYPES)
+        permitted_params.slice(:name, :description, *Whiskey::RATING_TYPES)
       end
     end
   end
